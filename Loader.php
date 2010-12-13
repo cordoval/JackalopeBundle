@@ -29,4 +29,22 @@ class Loader
         $credentials = new \PHPCR\SimpleCredentials($config['user'], $config['pass']);
         return $this->repository->login($credentials, $config['workspace']);
     }
+
+    /**
+     * Setup the base structure for this importer if necessary.
+     *
+     * @return \PHPCR\NodeInterface
+     * @throws a bloody lot of exceptions ... todo!!
+     */
+    protected function initPath($path)
+    {
+        $jackalopeSession = $this->getJackalopeSession();
+        $node = $jackalopeSession->getRootNode();
+        $nodes = explode('/', $path);
+        foreach($nodes as $subpath) {
+            $node = $node->addNode($subpath);
+        }
+        return $node;
+    }
+
 }
