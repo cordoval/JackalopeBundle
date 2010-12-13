@@ -34,12 +34,11 @@ class Loader
      * Setup the base structure for this importer if necessary.
      *
      * @return \PHPCR\NodeInterface
-     * @throws a bloody lot of exceptions ... todo!!
+     * @throws todo.. findout which exceptions might be thrown.
      */
-    protected function initPath($path)
+    public function initPath($path)
     {
-        $jackalopeSession = $this->getJackalopeSession();
-        $node = $jackalopeSession->getRootNode();
+        $node = $this->getSession()->getRootNode();
         $nodes = explode('/', $path);
         foreach($nodes as $subpath) {
             $node = $node->addNode($subpath);
