@@ -40,6 +40,11 @@ class Loader
     {
         $node = $this->getSession()->getRootNode();
         $nodes = explode('/', $path);
+
+        // remove first entry if empty.
+        if (empty($nodes[0])) {
+            array_shift($nodes);
+        }
         foreach($nodes as $subpath) {
             $node = $node->addNode($subpath);
         }
