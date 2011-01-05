@@ -7,9 +7,11 @@
     <parameters>
         <parameter key="jackalope.loader.class">Bundle\JackalopeBundle\Loader</parameter>
         <parameter key="jackalope.repository.class">Jackalope\Repository</parameter>
+        <parameter key="jackalope.options.factory">null</parameter>
         <parameter key="jackalope.options.url">null</parameter>
         <parameter key="jackalope.options.transport">null</parameter>
         <parameter key="jackalope.options" type="collection">
+            <parameter key="factory">null</parameter>
             <parameter key="url">null</parameter>
             <parameter key="user">null</parameter>
             <parameter key="pass">null</parameter>
@@ -25,6 +27,7 @@
         </service>
 
         <service id="jackalope.repository" class="%jackalope.repository.class%">
+            <argument>%jackalope.options.factory%</argument>
             <argument>%jackalope.options.url%</argument>
             <argument>%jackalope.options.transport%</argument>
         </service>
