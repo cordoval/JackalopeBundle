@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\JackalopeBundle;
+namespace Jackalope\Bundle\JackalopeBundle;
 
 class Loader
 {

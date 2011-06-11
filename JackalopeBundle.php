@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\JackalopeBundle;
+namespace Jackalope\Bundle\JackalopeBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
