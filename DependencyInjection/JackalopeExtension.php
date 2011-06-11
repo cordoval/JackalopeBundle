@@ -1,11 +1,14 @@
 <?php
 
-namespace Bundle\JackalopeBundle\DependencyInjection;
+namespace Jackalope\Bundle\JackalopeBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+//new Reference('doctrine.dbal' . $connection . '_connection);
+/*Ok moving on with this spec: instead of the jcakrabbit rasnport, it should inject a doctrine transport and re-use a doctrine connection for it
+in the dependency injection configuraiton // then you can construct "jackalope" service to be created with a Jackalope\Transport\Doctrine\DoctrineTransport*/
 class JackalopeExtension extends Extension
 {
     /**
