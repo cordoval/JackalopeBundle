@@ -2,14 +2,15 @@ JackalopeBundle
 ===============
 
 Provides basic integration of the Jackalope library into Symfony projects
+Supports doctrine transport
 
 Installation
 ============
 
  1. Add the JackalopeBundle and the jackalope library to your project as git submodules:
 
-        $ git submodule add git://github.com/jackalope/JackalopeBundle.git src/Bundle/JackalopeBundle
-        $ git submodule add git://github.com/jackalope/jackalope.git src/vendor/jackalope
+        $ git submodule add git://github.com/jackalope/JackalopeBundle.git vendor/bundles/JackalopeBundle
+        $ git submodule add git://github.com/jackalope/jackalope.git vendor/jackalope
         $ git submodule update --recursive --init
 
  2. Add the bundle to your application kernel:
@@ -19,7 +20,7 @@ Installation
         {
             return array(
                 // ...
-                new Bundle\JackalopeBundle\JackalopeBundle(),
+                new Jackalope\Bundle\JackalopeBundle\JackalopeBundle(),
                 // ...
             );
         }
@@ -29,12 +30,22 @@ Installation
         // src/autoload.php
         $loader->registerNamespaces(array(
             // ...
-            'Jackalope'                      => $vendorDir.'/jackalope/src',
-            'PHPCR'                          => $vendorDir.'/jackalope/lib/phpcr/src',
+            'JackalopeBundle'                => __DIR__.'/../vendor/bundles',
+            'Jackalope'                      => __DIR__.'/../vendor/jackalope/src',
+            'PHPCR'                          => __DIR__.'/../vendor/jackalope/lib/phpcr/src',
             // ...
         ));
 
  4. Add the bundle to your application config:
+
+        # This configuration is to support doctrine transport
+        # app/config/config.yml
+        jackalope:
+           transport: doctrine
+           connection: default
+           workspace: default
+           user: default
+           pass: default
 
         # app/config/config.yml
         jackalope.config:
@@ -65,3 +76,4 @@ Contributors
 ============
 
 - Jordi Boggiano <j.boggiano@seld.be>
+- Luis Cordova <cordoval@gmail.com>
