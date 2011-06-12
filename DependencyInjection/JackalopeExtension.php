@@ -2,13 +2,20 @@
 
 namespace Jackalope\Bundle\JackalopeBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-//new Reference('doctrine.dbal' . $connection . '_connection);
-/*Ok moving on with this spec: instead of the jcakrabbit rasnport, it should inject a doctrine transport and re-use a doctrine connection for it
-in the dependency injection configuraiton // then you can construct "jackalope" service to be created with a Jackalope\Transport\Doctrine\DoctrineTransport*/
+/*new Reference('doctrine.dbal' . $connection . '_connection);
+instead of the jcakrabbit trasnport,
+it should inject a doctrine transport
+and re-use a doctrine connection for it
+in the dependency injection configuraiton
+then you can construct "jackalope" service to be created with a
+Jackalope\Transport\Doctrine\DoctrineTransport*/
+
 class JackalopeExtension extends Extension
 {
     /**
@@ -17,24 +24,23 @@ class JackalopeExtension extends Extension
      * @param array $config An array of configuration settings
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
-    public function configLoad($config, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('jackalope.loader')) {
-            $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
-            $loader->load('jackalope.xml');
-        }
-
-        if (!isset($config['workspace'])) {
-            throw new \Exception('Jackalope\'s workspace parameter is mandatory');
-        }
+        $processor = new Processor();
+        $configuration = new Configuration();
+        $config = $processor->process($configuration->getConfigTree(),$configs);
 
         $options = array();
-        foreach (array('url', 'user', 'pass', 'workspace', 'transport') as $var) {
-            if (isset($config[$var])) {
-                $options[$var] = $config[$var];
-                $container->setParameter('jackalope.options.'.$var, $config[$var]);
-            }
+        foreach (array('connection', 'user', 'pass', 'workspace', 'transport') as $var) {
+            $options[$var] = $config[$var];
+            $container->setParameter('jackalope.options.'.$var, $config[$var]);
         }
+
+        $loader = new XmlFileLoader($container,  new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('jackalope.xml');
+
+        $container->setAlias('jackalope.transport', 'jackalope.transport.'.$config['transport']);
+
         $container->setParameter('jackalope.options', array_replace($container->getParameter('jackalope.options'), $options));
     }
 

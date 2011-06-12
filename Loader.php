@@ -4,14 +4,14 @@ namespace Jackalope\Bundle\JackalopeBundle;
 
 class Loader
 {
-    protected $repository;
+    protected $container;
     protected $session;
 
     protected $config;
 
-    public function __construct($repository, $config)
+    public function __construct($container, $config)
     {
-        $this->repository = $repository;
+        $this->container = $container;
         $this->config = $config;
     }
 
@@ -27,7 +27,7 @@ class Loader
     {
         $config = array_merge($this->config, $config);
         $credentials = new \PHPCR\SimpleCredentials($config['user'], $config['pass']);
-        return $this->repository->login($credentials, $config['workspace']);
+        return $this->container->login($credentials, $config['workspace']);
     }
 
     /**
