@@ -9,7 +9,7 @@ Installation
 
  1. Add the JackalopeBundle and the jackalope library to your project as git submodules:
 
-        $ git submodule add git://github.com/jackalope/JackalopeBundle.git vendor/bundles/JackalopeBundle
+        $ git submodule add git://github.com/jackalope/JackalopeBundle.git vendor/bundles/Jackalope/Bundle/JackalopeBundle
         $ git submodule add git://github.com/jackalope/jackalope.git vendor/jackalope
         $ git submodule update --recursive --init
 
@@ -30,7 +30,7 @@ Installation
         // src/autoload.php
         $loader->registerNamespaces(array(
             // ...
-            'JackalopeBundle'                => __DIR__.'/../vendor/bundles',
+            'Jackalope\\Bundle\\JackalopeBundle'   => __DIR__.'/../vendor/bundles',
             'Jackalope'                      => __DIR__.'/../vendor/jackalope/src',
             'PHPCR'                          => __DIR__.'/../vendor/jackalope/lib/phpcr/src',
             // ...
