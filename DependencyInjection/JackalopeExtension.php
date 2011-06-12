@@ -39,7 +39,7 @@ class JackalopeExtension extends Extension
         $loader = new XmlFileLoader($container,  new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('jackalope.xml');
 
-        $container->setAlias('jackalope.transport', 'jackalope.transport.'.$config['transport']);
+        //$container->setAlias('jackalope.transport', 'jackalope.transport.'.$config['transport']);
 
         $container->setParameter('jackalope.options', array_replace($container->getParameter('jackalope.options'), $options));
     }
